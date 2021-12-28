@@ -1,0 +1,36 @@
+{
+    "name": "Catche",
+    "description": "Cache your current session, and revisit it at another time!",
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    },
+    "icons": {
+        "16": "./images/folder-16_x_16.png",
+        "32": "./images/folder-32_x_32.png",
+        "48": "./images/folder-48_x_48.png",
+        "128":"./images/folder-128_x_128.png"
+    },
+    "background": {
+        "service_worker": "./background.js"
+    },
+    "action": {
+        "default_popup": "./popup.html",
+        "default_icons": {
+            "16": "./images/folder-16_x_16.png",
+            "32": "./images/folder-32_x_32.png",
+            "48": "./images/folder-48_x_48.png",
+            "128":"./images/folder-128_x_128.png"
+        }
+    },
+    "options_page": "./options.html",
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "windows",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": ["<all_urls>"]
+}

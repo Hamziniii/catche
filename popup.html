@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catche</title>
+    <link rel="stylesheet" href="popup_style.css">
+    <script src="./jquery-3.6.0.js"></script>
+</head>
+<body>
+    <h2 id='title'>Catche</h2>
+    <div id="buttons">
+        <button id="get_current_tabs">Create Session</button>
+        <button id="get_sessions_button">Get Sessions</button>
+    </div>
+    <div id="add_session" style="display: none;">
+        <div id='current_tabs'></div>
+        <div id="create_session_dialogue"><p>Create session:</p><input type="text" placeholder="Enter session name:" id="session-name"><button id='create_session_dialogue_button'>Create</button></div>
+    </div>
+    <div id="get_sessions" style="display: none;">
+    </div>
+    <script src="./popup_script.js"></script>
+</body>
+</html>

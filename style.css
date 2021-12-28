@@ -1,0 +1,16 @@
+#hamziniii-cloak {
+    pointer-events: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: none;
+    z-index: 999999999999;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    filter: brightness(.7);
+}

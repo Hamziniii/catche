@@ -1,0 +1,50 @@
+body {
+    width: 500px;
+    min-height: 100px;
+    border-radius: 25px;
+    margin: 15px;
+    background-color: black;
+    color: white
+}
+
+#title {
+    text-align: center;
+}
+
+#buttons {
+    padding-bottom: 10px;
+}
+
+#link {
+    display: grid; 
+    grid-template: 1fr auto 1fr / 15px auto;
+    column-gap: 10px;
+}
+
+#link-checkbox {
+    grid-area: 2 / 1;
+    place-self: center;
+}
+
+#link-span {
+    grid-area: 2 / 2;
+    justify-self: left;
+    align-self: center;
+}
+
+#session-name {
+    padding-right: 5px;
+}
+
+a {
+    color: plum
+}
+
+#link_header_name {
+    font-weight: bold;
+}
+
+#link_header span {
+    padding: 4px;
+    padding-left: 0px;
+}
