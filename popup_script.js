@@ -42,9 +42,8 @@ function getSessions() {
 
 	chrome.storage.local.get(null).then((_) => {
 		sessionData = Object.entries(_)
-		console.log(sessionData)
 		sessionData.forEach((_, i) => {
-			$(`<div id="link_header" data="${i}"><span id="link_header_name">${_[0]}</span><span>📂</span><span>❌</span></div><br>`).appendTo('#get_sessions')
+			$(`<div id="link_header" data="${i}"><span id="link_header_name">${_[0]}</span><span>📁</span><span>📂</span><span>❌</span></div><br>`).appendTo('#get_sessions')
 			_[1].forEach(__ => $(`<a href="${__.url}" target="_blank">${__.title}</a><br>`).appendTo('#get_sessions'))
 			$('<br>').appendTo('#get_sessions')
 		})
@@ -64,12 +63,22 @@ function openTab(url) {
 
 async function openSession(id) {
 	let name = sessionData[id][0]
-	if(!confirm("Are you sure you want to open " + name + " ?"))
+	if(!confirm("Are you sure you want to open " + name + " in a new window?"))
 		return 
 	chrome.windows.create({
 		focused: true,
 		url: sessionData[id][1].map(_ => _.url)
 	}) 
+}
+
+async function openSessionCurrentWindow(id) {
+	let name = sessionData[id][0]
+	if(!confirm("Are you sure you want to open " + name + " in the current window?"))
+		return 
+	let urls = sessionData[id][1].map(_ => _.url)
+	let tabData = []
+	for(url of urls) { tabData.push(await chrome.tabs.create({url, active: false, selected: false})) }
+	chrome.tabs.group({	tabIds: tabData.map(_ => _.id) })
 }
 
 function click(e) {
@@ -80,6 +89,9 @@ function click(e) {
 			break; 
 		case "📂":
 			openSession(parent.attributes.data.value); 
+			break; 
+		case "📁":
+			openSessionCurrentWindow(parent.attributes.data.value); 
 			break; 
 	}
 }
