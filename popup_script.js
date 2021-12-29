@@ -4,31 +4,31 @@ let tags = {}
 let _tags = {}
 
 function getCurrentTabs() {
-    console.log("getting current tabs")
-    tags["get_sessions"] = false 
-    tags["add_session"] = true 
-    
-    chrome.tabs.query({
-        currentWindow: true
-    }, (tabs) => {
-        // chrome.tabs.sendMessage(tabs[0].id, "potato!", {purple: true, ugly: false}, console.log)
-        $("#current_tabs").empty()
-        tabData = tabs.map(_ => ({title: _.title.replace('💤', ''), url: _.url}))
-        tabData.map((_, i) => $(`<div id='link'><input id='link-checkbox' type='checkbox' data='${i}'></input><span id='link-span'>${_.title}</span></div>`).appendTo('#current_tabs'))
-        console.log(tabData)
-    })    
+	console.log("getting current tabs")
+	tags["get_sessions"] = false 
+	tags["add_session"] = true 
+	
+	chrome.tabs.query({
+		currentWindow: true
+	}, (tabs) => {
+		// chrome.tabs.sendMessage(tabs[0].id, "potato!", {purple: true, ugly: false}, console.log)
+		$("#current_tabs").empty()
+		tabData = tabs.map(_ => ({title: _.title.replace('💤', ''), url: _.url}))
+		tabData.map((_, i) => $(`<div id='link'><input id='link-checkbox' type='checkbox' data='${i}'></input><span id='link-span'>${_.title}</span></div>`).appendTo('#current_tabs'))
+		console.log(tabData)
+	})    
 }
 
 function createSession() {
-    console.log("Creating session")
-    let tabs = $("input[type='checkbox']").toArray().filter(_ => _.checked).map(_ => tabData[_.attributes.getNamedItem('data').value])
-    let name = $("#session-name").val()
+	console.log("Creating session")
+	let tabs = $("input[type='checkbox']").toArray().filter(_ => _.checked).map(_ => tabData[_.attributes.getNamedItem('data').value])
+	let name = $("#session-name").val()
 	let data = {}
 	data[name] = tabs
-    if(tabs.length < 1)
+		if(tabs.length < 1)
 	return 
 	
-    $("#session-name").val('')
+	$("#session-name").val('')
 	chrome.storage.local.set(data, function() {
 		console.log(name + ' is set to ' + tabs);
 	})
@@ -97,17 +97,17 @@ function click(e) {
 }
 
 $(window).on("load", () => {
-    $("[style]").toArray().forEach(e => _tags[e.id] = e.style.display != "none")
-    tags = new Proxy(_tags, {
-        set: (obj, prop, val) => {
-            $("#" + prop).toArray()[0].style.display = val ? "initial" : "none";
-            obj[prop] = val; 
-        }, 
-        get: (obj, prop) => {
-            obj[prop] = $("#" + prop).toArray()[0].style.display
-            return obj[prop]
-        }
-    })
+	$("[style]").toArray().forEach(e => _tags[e.id] = e.style.display != "none")
+	tags = new Proxy(_tags, {
+		set: (obj, prop, val) => {
+			$("#" + prop).toArray()[0].style.display = val ? "initial" : "none";
+			obj[prop] = val; 
+		}, 
+		get: (obj, prop) => {
+			obj[prop] = $("#" + prop).toArray()[0].style.display
+			return obj[prop]
+		}
+	})
     
 	$("#get_current_tabs").on("click", getCurrentTabs)
 	$("#create_session_dialogue_button").on('click', createSession)
