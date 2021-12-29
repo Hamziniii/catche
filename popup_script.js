@@ -78,7 +78,7 @@ async function openSessionCurrentWindow(id) {
 	let urls = sessionData[id][1].map(_ => _.url)
 	let tabData = []
 	for(url of urls) { tabData.push(await chrome.tabs.create({url, active: false, selected: false})) }
-	chrome.tabs.group({	tabIds: tabData.map(_ => _.id) })
+	chrome.tabs.group({	tabIds: tabData.map(_ => _.id) }).then(groupId => chrome.tabGroups.update(groupId, {collapsed: true, title: name}))
 }
 
 function click(e) {
@@ -109,8 +109,8 @@ $(window).on("load", () => {
         }
     })
     
-    $("#get_current_tabs").on("click", getCurrentTabs)
-    $("#create_session_dialogue_button").on('click', createSession)
+	$("#get_current_tabs").on("click", getCurrentTabs)
+	$("#create_session_dialogue_button").on('click', createSession)
 	$("#get_sessions_button").on('click', getSessions)
 	$(document).on('click', click)
 
